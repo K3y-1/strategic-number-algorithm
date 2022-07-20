@@ -5,9 +5,9 @@ class Node:
         self.left = None
         self.right = None
         self.value = val
-        self.lower_count = 0 
+        self.left_count = 0 
 
-class Tree:
+class  BST:
     def __init__(self, root):
         self.root = Node(root)
 
@@ -16,23 +16,17 @@ class Tree:
         s = 0
         while 1:
             if val > n.value:
-                s += n.lower_count + 1
+                s += n.left_count + 1
                 if not n.right:
                     n.right = Node(val)
                     return s
                 n = n.right
             else:
-                n.lower_count += 1
+                n.left_count += 1
                 if not n.left:
                     n.left = Node(val)
                     return s
                 n = n.left
-
-    def print_tree(self, node=0):
-        if (node):
-            self.print_tree(node.left)
-            print(node.value, node.lower_count)
-            self.print_tree(node.right)
 
 def timer(func):
     def wraper(*args):
@@ -43,7 +37,7 @@ def timer(func):
 
 @timer
 def binary_tree_strategic_num(arr):
-    t = Tree(arr[-1])
+    t = BST(arr[-1])
     strategic_num = 0
     for i in arr[-2::-1]:
         strategic_num += t.insert(i)
